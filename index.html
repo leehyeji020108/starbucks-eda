@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbucks Korea - Intelligence Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-mug-hot"></i>
+                <span>SB Intelligence</span>
+            </div>
+            
+            <nav class="nav-links">
+                <div class="nav-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</div>
+                <div class="nav-item"><i class="fa-solid fa-map-location-dot"></i> Network</div>
+                <div class="nav-item"><i class="fa-solid fa-database"></i> Inventory</div>
+            </nav>
+
+            <div class="kpi-sidebar">
+                <h3>Quick Stats</h3>
+                <div class="mini-kpi">
+                    <span class="label">Total Stores</span>
+                    <span class="value" id="total-val">-</span>
+                </div>
+                <div class="mini-kpi">
+                    <span class="label">Reserve</span>
+                    <span class="value accent" id="reserve-val">-</span>
+                </div>
+                <div class="mini-kpi">
+                    <span class="label">Drive-Thru</span>
+                    <span class="value" id="dt-val">-</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="store-search" placeholder="Search for a store (e.g. 역삼, 강남)...">
+                </div>
+                <div class="user-profile">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Starbucks" alt="Admin">
+                    <span>Data Analyst</span>
+                </div>
+            </header>
+
+            <section class="dashboard-grid">
+                <!-- KPI Cards -->
+                <div class="card kpi-card glass">
+                    <div class="kpi-icon"><i class="fa-solid fa-store"></i></div>
+                    <div class="kpi-info">
+                        <h2>전국 매장 수</h2>
+                        <div class="kpi-number" id="main-total">-</div>
+                    </div>
+                </div>
+                <div class="card kpi-card glass">
+                    <div class="kpi-icon reserve"><i class="fa-solid fa-gem"></i></div>
+                    <div class="kpi-info">
+                        <h2>리저브 매장</h2>
+                        <div class="kpi-number" id="main-reserve">-</div>
+                    </div>
+                </div>
+                <div class="card kpi-card glass">
+                    <div class="kpi-icon dt"><i class="fa-solid fa-car"></i></div>
+                    <div class="kpi-info">
+                        <h2>드라이브 스루</h2>
+                        <div class="kpi-number" id="main-dt">-</div>
+                    </div>
+                </div>
+
+                <!-- Charts Area -->
+                <div class="card chart-card glass sido-chart">
+                    <h3>시도별 매장 분포</h3>
+                    <div class="chart-container">
+                        <canvas id="sidoChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card chart-card glass gugun-chart">
+                    <h3>Top 10 구군 밀도</h3>
+                    <div class="chart-container">
+                        <canvas id="gugunChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Map Area -->
+                <div class="card map-card glass">
+                    <div class="card-header">
+                        <h3>네트워크 맵 (실시간 위치 정보)</h3>
+                        <div class="map-controls">
+                            <button id="reset-map">Reset View</button>
+                        </div>
+                    </div>
+                    <div id="map-container"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Search Results Overlay -->
+    <div id="search-results" class="glass hidden">
+        <div class="results-header">검색 결과 <span id="res-count">0</span></div>
+        <ul id="results-list"></ul>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Local Data -->
+    <script src="./public/data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
